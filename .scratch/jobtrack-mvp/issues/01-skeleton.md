@@ -8,12 +8,12 @@
 
 **Status:** ready-for-agent
 
-- [ ] `docker compose up` on a clean machine builds the image and starts the app and Postgres; the app waits until the database is healthy
-- [ ] The placeholder Dashboard page loads with a shared layout and navigation; HTMX is loaded
-- [ ] Migrations run automatically at app startup (an initial empty migration is enough)
-- [ ] Data persists across `docker compose down` / `up` (named volume)
-- [ ] The database URL, listen address and BA base URL are read from environment variables, with sensible defaults in compose
-- [ ] `sqlc` is configured and generates code from SQL queries; `templ` generation is part of the build
-- [ ] The test harness starts the app against a real Postgres with a clean state per test, and can point the BA base URL at an `httptest` fake server
-- [ ] One passing test requests the Dashboard over HTTP and checks the page content
-- [ ] The README explains how to run the app, how to run the tests, and how to regenerate `templ` and `sqlc` code
+- [x] `docker compose up` on a clean machine builds the image and starts the app and Postgres; the app waits until the database is healthy
+- [x] The placeholder Dashboard page loads with a shared layout and navigation; HTMX is loaded
+- [x] Migrations run automatically at app startup (an initial empty migration is enough)
+- [x] Data persists across `docker compose down` / `up` (named volume)
+- [x] The database URL, listen address and BA base URL are read from environment variables, with sensible defaults in compose
+- [x] `sqlc` is configured and generates code from SQL queries; `templ` generation is part of the build
+- [x] The test harness starts the app against a real Postgres with a clean state per test, and can point the BA base URL at an `httptest` fake server
+- [x] One passing test requests the Dashboard over HTTP and checks the page content
+- [x] The README explains how to run the app, how to run the tests, and how to regenerate `templ` and `sqlc` code

@@ -1,0 +1,12 @@
+# sqlc reads the schema (from the goose migrations) and the SQL queries, and
+# generates type-safe Go code for them. Regenerate with `make sqlc`.
+version: "2"
+sql:
+  - engine: postgresql
+    schema: internal/db/migrations
+    queries: internal/db/queries
+    gen:
+      go:
+        package: store
+        out: internal/db/store
+        sql_package: pgx/v5

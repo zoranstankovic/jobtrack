@@ -1,0 +1,59 @@
+/* Minimal styling. Kept small on purpose; this is not a CSS project. */
+
+:root {
+  --fg: #1f2328;
+  --muted: #59636e;
+  --bg: #ffffff;
+  --border: #d1d9e0;
+  --accent: #0969da;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  color: var(--fg);
+  background: var(--bg);
+}
+
+body {
+  margin: 0;
+}
+
+header {
+  border-bottom: 1px solid var(--border);
+}
+
+nav {
+  display: flex;
+  gap: 1.25rem;
+  align-items: baseline;
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: 0.75rem 1rem;
+}
+
+nav a {
+  color: var(--muted);
+  text-decoration: none;
+}
+
+nav a:hover,
+nav a[aria-current="page"] {
+  color: var(--fg);
+}
+
+nav a[aria-current="page"] {
+  font-weight: 600;
+}
+
+nav .brand {
+  color: var(--fg);
+  font-weight: 700;
+  margin-right: 1rem;
+}
+
+main {
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+a {
+  color: var(--accent);
+}

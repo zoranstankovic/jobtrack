@@ -1,0 +1,11 @@
+# Files the Docker build does not need. Smaller build context = faster builds,
+# and generated files are always regenerated inside the image.
+.git
+.scratch
+.claude
+docs
+bin
+tmp
+**/*_templ.go
+*.md
+!README.md

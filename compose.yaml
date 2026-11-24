@@ -1,0 +1,44 @@
+# Start everything with:  docker compose up --build
+# Stop with:              docker compose down      (data is kept)
+# Delete all data with:   docker compose down -v   (removes the volume)
+
+services:
+  db:
+    image: postgres:18-alpine
+    environment:
+      POSTGRES_USER: jobtrack
+      POSTGRES_PASSWORD: jobtrack
+      POSTGRES_DB: jobtrack
+    volumes:
+      # A named volume keeps the data outside the container, so it survives
+      # `docker compose down` and image upgrades. Postgres 18 images store
+      # their data under /var/lib/postgresql.
+      - pgdata:/var/lib/postgresql
+    ports:
+      # Only reachable from this machine. Handy for `go run` and psql.
+      - "127.0.0.1:5432:5432"
+    healthcheck:
+      # pg_isready succeeds once Postgres accepts connections.
+      test: ["CMD-SHELL", "pg_isready -U jobtrack -d jobtrack"]
+      interval: 2s
+      timeout: 5s
+      retries: 30
+    restart: unless-stopped
+
+  app:
+    build: .
+    environment:
+      # "db" is the service name above; compose makes it resolvable as a host.
+      DATABASE_URL: postgres://jobtrack:jobtrack@db:5432/jobtrack?sslmode=disable
+      LISTEN_ADDR: ":8080"
+      BA_BASE_URL: https://rest.arbeitsagentur.de/jobboerse/jobsuche-service
+    ports:
+      - "8080:8080"
+    depends_on:
+      db:
+        # Wait until the healthcheck passes, not just until the container starts.
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  pgdata:
