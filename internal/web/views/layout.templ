@@ -1,0 +1,46 @@
+package views
+
+// Layout is the shared page frame: <head>, navigation and main content area.
+// Every full page renders inside it. HTMX fragments do NOT use the layout:
+// they return only the piece of HTML that gets swapped into the page.
+//
+// `{ children... }` is where the page's own content goes, for example:
+//
+//	@Layout("Companies", "/companies") {
+//	    <h1>Companies</h1>
+//	}
+templ Layout(title string, activePath string) {
+	<!DOCTYPE html>
+	<html lang="en">
+		<head>
+			<meta charset="utf-8"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1"/>
+			<title>{ title } · jobtrack</title>
+			<link rel="stylesheet" href="/static/app.css"/>
+			<script src="/static/htmx.min.js" defer></script>
+		</head>
+		<body>
+			<header>
+				<nav>
+					<a class="brand" href="/">jobtrack</a>
+					@navLink("/", "Dashboard", activePath)
+					@navLink("/applications", "Applications", activePath)
+					@navLink("/companies", "Companies", activePath)
+					@navLink("/search-profiles", "Search Profiles", activePath)
+				</nav>
+			</header>
+			<main>
+				{ children... }
+			</main>
+		</body>
+	</html>
+}
+
+// navLink renders one navigation link and marks it when it is the current page.
+templ navLink(href string, label string, activePath string) {
+	if href == activePath {
+		<a href={ templ.SafeURL(href) } aria-current="page">{ label }</a>
+	} else {
+		<a href={ templ.SafeURL(href) }>{ label }</a>
+	}
+}
